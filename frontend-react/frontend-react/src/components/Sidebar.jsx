@@ -1,8 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LayoutDashboard, Package, Users, Boxes, BarChart3, LogOut, Heart, Sparkles, User } from "lucide-react";
+import { LayoutDashboard, Package, Users, Boxes, BarChart3, LogOut, Heart, Sparkles, User, ShoppingCart } from "lucide-react";
+import { useCart } from "../context/CartContext";
 
 function Sidebar({ role, productRoute }) {
   const navigate = useNavigate();
+  const { cart } = useCart();
+
+  const cartCount = cart ? cart.reduce((total, item) => total + item.quantity, 0) : 0;
 
   const handleLogout = () => {
     localStorage.removeItem("user");
@@ -20,6 +24,23 @@ function Sidebar({ role, productRoute }) {
           <>
             <Link to="/user-dashboard" style={linkStyle}><LayoutDashboard size={20} /> Dashboard</Link>
             <Link to="/products" style={linkStyle}><Package size={20} /> Products</Link>
+            <Link to="/cart" style={{ ...linkStyle, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <ShoppingCart size={20} /> Cart
+              </div>
+              {cartCount > 0 && (
+                <span style={{
+                  background: "#eff6ff",
+                  color: "#3b82f6",
+                  padding: "2px 8px",
+                  borderRadius: "12px",
+                  fontSize: "13px",
+                  fontWeight: "700"
+                }}>
+                  {cartCount}
+                </span>
+              )}
+            </Link>
             <Link to="/wishlist" style={linkStyle}><Heart size={20} /> Wishlist</Link>
             <Link to="/ai-search" style={linkStyle}><Sparkles size={20} /> AI Search</Link>
             <Link to="/profile" style={linkStyle}><User size={20} /> Profile</Link>
