@@ -66,185 +66,56 @@ function SemanticSearch() {
   };
 
   return (
-
-    <div
-      style={{
-        background:"#f8fafc",
-        minHeight:"100vh",
-      }}
-    >
-
+    <div style={{ background:"#F8FAFC", minHeight:"100vh", fontFamily:"'Inter', sans-serif" }}>
       <Navbar />
 
-      <div
-        style={{
-          padding:"70px",
-        }}
-      >
+      <div style={{ padding:"60px 8%" }}>
 
         {/* HEADER */}
-
-        <h1
-          style={{
-            fontSize:"60px",
-            fontWeight:"900",
-            color:"#0f172a",
-          }}
-        >
-
-          AI Semantic Search 🤖
-
-        </h1>
-
-        <p
-          style={{
-            marginTop:"20px",
-            fontSize:"20px",
-            color:"#64748b",
-            maxWidth:"800px",
-            lineHeight:"34px",
-          }}
-        >
-
-          Discover products intelligently using
-          AI-powered semantic understanding and
-          smart recommendations.
-
-        </p>
+        <div>
+          <h1 style={{ fontSize:"40px", fontWeight:"900", color:"#111827", letterSpacing: "-1.5px" }}>AI Semantic Search 🤖</h1>
+          <p style={{ marginTop:"8px", fontSize:"18px", color:"#64748B", maxWidth:"600px", lineHeight:"1.6", fontWeight: "500" }}>Discover products intelligently using AI-powered semantic understanding and smart recommendations.</p>
+        </div>
 
         {/* SEARCH BAR */}
-
-        <div
-          style={{
-            marginTop:"40px",
-            display:"flex",
-            gap:"20px",
-          }}
-        >
-
+        <div style={{ marginTop:"40px", display:"flex", gap:"15px", flexWrap: "wrap" }}>
           <input
             type="text"
-            placeholder="Search products intelligently..."
+            placeholder="Search products intelligently... (e.g. Sony, Nike, ROG, MacBook)"
             value={query}
-            onChange={(e)=>
-              setQuery(e.target.value)
-            }
-            style={{
-              flex:"1",
-              padding:"20px",
-              borderRadius:"18px",
-              border:"1px solid #cbd5e1",
-              fontSize:"18px",
-            }}
+            onChange={(e) => setQuery(e.target.value)}
+            className="form-input"
+            style={{ flex:"1", minWidth: "250px", padding:"16px 20px", fontSize:"16px" }}
           />
 
           <button
             onClick={handleSearch}
-            style={{
-              background:"#2563eb",
-              color:"white",
-              border:"none",
-              padding:"0 36px",
-              borderRadius:"18px",
-              fontWeight:"700",
-              fontSize:"17px",
-              cursor:"pointer",
-            }}
+            className="btn-primary"
+            style={{ width: "auto", padding:"16px 36px", fontSize:"16px" }}
           >
-
-            Search
-
+            Search Catalog
           </button>
-
         </div>
 
         {/* RESULTS */}
-
-        <div
-          style={{
-            marginTop:"60px",
-            display:"grid",
-            gridTemplateColumns:
-              "repeat(auto-fit,minmax(280px,1fr))",
-            gap:"30px",
-          }}
-        >
-
-          {results.map((product)=>(
-
-            <div
-              key={product.id}
-              style={{
-                background:"white",
-                borderRadius:"24px",
-                overflow:"hidden",
-                boxShadow:
-                  "0 10px 40px rgba(0,0,0,0.08)",
-              }}
-            >
-
-              <img
-                src={product.image}
-                alt=""
-                style={{
-                  width:"100%",
-                  height:"220px",
-                  objectFit:"cover",
-                }}
-              />
-
-              <div
-                style={{
-                  padding:"24px",
-                }}
-              >
-
-                <h2
-                  style={{
-                    fontSize:"28px",
-                    fontWeight:"800",
-                    color:"#0f172a",
-                  }}
-                >
-
-                  {product.name}
-
-                </h2>
-
-                <p
-                  style={{
-                    marginTop:"10px",
-                    color:"#64748b",
-                  }}
-                >
-
-                  {product.category}
-
-                </p>
-
-                <h3
-                  style={{
-                    marginTop:"18px",
-                    color:"#2563eb",
-                    fontWeight:"900",
-                    fontSize:"24px",
-                  }}
-                >
-
-                  {product.price}
-
-                </h3>
-
+        <div style={{ marginTop:"50px", display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(280px, 1fr))", gap:"30px" }}>
+          {results.map((product) => (
+            <div key={product.id} className="premium-card" style={{ background:"white", padding:"20px", display: "flex", flexDirection: "column" }}>
+              <img src={product.image} alt={product.name} style={{ width:"100%", height:"220px", objectFit:"cover", borderRadius:"18px" }} />
+              <div style={{ display: "flex", flexDirection: "column", flexGrow: 1, marginTop: "20px" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "10px" }}>
+                  <h2 style={{ fontSize:"18px", fontWeight:"800", color:"#111827", lineHeight: "1.3" }}>{product.name}</h2>
+                  <span style={{ background: "#EEF2FF", padding: "4px 8px", borderRadius: "8px", fontSize: "11px", fontWeight: "700", color: "#4F46E5", flexShrink: 0 }}>
+                    {product.category}
+                  </span>
+                </div>
+                <h3 style={{ marginTop:"16px", color:"#4F46E5", fontWeight:"900", fontSize:"22px" }}>{product.price}</h3>
               </div>
-
             </div>
-
           ))}
-
         </div>
 
       </div>
-
     </div>
   );
 }

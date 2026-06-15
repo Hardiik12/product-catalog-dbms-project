@@ -16,151 +16,124 @@ function OrderSuccess() {
 
     <div
       style={{
-        background:"#f8fafc",
+        background:"#F8FAFC",
         minHeight:"100vh",
         display:"flex",
         justifyContent:"center",
         alignItems:"center",
         padding:"40px",
+        fontFamily:"'Inter', sans-serif"
       }}
     >
 
       <div
+        className="premium-card"
         style={{
           background:"white",
-          padding:"70px",
-          borderRadius:"36px",
+          padding:"60px 40px",
           textAlign:"center",
-          maxWidth:"700px",
+          maxWidth:"600px",
           width:"100%",
-          boxShadow:
-            "0 20px 60px rgba(0,0,0,0.08)",
+          border: "1px solid rgba(226, 232, 240, 0.8)"
         }}
       >
 
         {/* SUCCESS ICON */}
-
         <div
           style={{
             display:"flex",
             justifyContent:"center",
           }}
         >
-
           <div
             style={{
-              width:"130px",
-              height:"130px",
+              width:"100px",
+              height:"100px",
               borderRadius:"50%",
-              background:"#dcfce7",
+              background:"#ECFDF5",
               display:"flex",
               justifyContent:"center",
               alignItems:"center",
             }}
           >
-
             <CheckCircle
-              size={80}
-              color="green"
+              size={56}
+              color="#10B981"
             />
-
           </div>
-
         </div>
 
         {/* TITLE */}
-
         <h1
           style={{
-            marginTop:"40px",
-            fontSize:"52px",
+            marginTop:"30px",
+            fontSize:"32px",
             fontWeight:"900",
-            color:"#0f172a",
+            color:"#111827",
+            letterSpacing: "-0.5px"
           }}
         >
-
           Order Placed Successfully 🎉
-
         </h1>
 
         <p
           style={{
-            marginTop:"25px",
-            color:"#64748b",
-            fontSize:"20px",
-            lineHeight:"34px",
+            marginTop:"15px",
+            color:"#64748B",
+            fontSize:"16px",
+            lineHeight:"1.6",
+            fontWeight: "500"
           }}
         >
-
-          Thank you for shopping with
-          VectorCart AI. Your order has been
-          confirmed and will be delivered soon.
-
+          Thank you for shopping with VectorCart AI. Your order has been confirmed and will be delivered soon.
         </p>
 
         {/* ORDER DETAILS */}
-
         <div
           style={{
-            marginTop:"45px",
-            background:"#f8fafc",
-            padding:"30px",
-            borderRadius:"24px",
+            marginTop:"30px",
+            background:"#F8FAFC",
+            padding:"20px 30px",
+            borderRadius:"16px",
             textAlign:"left",
+            border: "1.5px solid #E2E8F0"
           }}
         >
-
           <div style={infoRow}>
-
             <span>Order ID</span>
-
             <strong>#VC2026</strong>
-
           </div>
 
           <div style={infoRow}>
-
             <span>Payment</span>
-
-            <strong>Successful</strong>
-
+            <strong style={{ color: "#10B981" }}>Successful</strong>
           </div>
 
-          <div style={infoRow}>
-
+          <div style={{ ...infoRow, borderBottom: "none" }}>
             <span>Delivery</span>
-
             <strong>2-4 Business Days</strong>
-
           </div>
-
         </div>
 
         {/* BUTTONS */}
-
         <div
           style={{
-            marginTop:"45px",
+            marginTop:"40px",
             display:"flex",
             justifyContent:"center",
-            gap:"20px",
+            gap:"15px",
             flexWrap:"wrap",
           }}
         >
-
           <Link
             to="/products"
             style={{
               textDecoration:"none",
             }}
           >
-
-            <button style={primaryBtn}>
-
+            <button className="btn-primary" style={{ padding: "14px 28px", width: "auto", fontSize: "15px" }}>
               Continue Shopping
-
             </button>
-
           </Link>
 
           <Link
@@ -169,15 +142,10 @@ function OrderSuccess() {
               textDecoration:"none",
             }}
           >
-
-            <button style={secondaryBtn}>
-
+            <button style={secondaryBtn} onMouseEnter={(e) => { e.currentTarget.style.borderColor = "#CBD5E1"; e.currentTarget.style.background = "#F8FAFC"; }} onMouseLeave={(e) => { e.currentTarget.style.borderColor = "#E2E8F0"; e.currentTarget.style.background = "white"; }}>
               Go To Dashboard
-
             </button>
-
           </Link>
-
         </div>
 
       </div>
@@ -189,57 +157,25 @@ function OrderSuccess() {
 /* STYLES */
 
 const infoRow = {
-
   display:"flex",
-
   justifyContent:"space-between",
-
-  padding:"18px 0",
-
-  borderBottom:"1px solid #e2e8f0",
-
-  fontSize:"17px",
-};
-
-const primaryBtn = {
-
-  background:"#2563eb",
-
-  color:"white",
-
-  border:"none",
-
-  padding:"18px 34px",
-
-  borderRadius:"16px",
-
-  fontWeight:"700",
-
-  fontSize:"16px",
-
-  cursor:"pointer",
-
-  boxShadow:
-    "0 10px 30px rgba(37,99,235,0.25)",
+  padding:"14px 0",
+  borderBottom:"1px solid #E2E8F0",
+  fontSize:"15px",
+  fontWeight: "500",
+  color: "#64748B"
 };
 
 const secondaryBtn = {
-
   background:"white",
-
-  color:"#0f172a",
-
-  border:"1px solid #cbd5e1",
-
-  padding:"18px 34px",
-
-  borderRadius:"16px",
-
+  color:"#111827",
+  border:"1px solid #E2E8F0",
+  padding:"14px 28px",
+  borderRadius:"14px",
   fontWeight:"700",
-
-  fontSize:"16px",
-
+  fontSize:"15px",
   cursor:"pointer",
+  transition: "all 0.3s"
 };
 
 export default OrderSuccess;

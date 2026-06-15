@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Mail, Lock, LogIn, ArrowRight } from "lucide-react";
 import API from "../services/api";
 
 function Login() {
@@ -27,22 +28,107 @@ function Login() {
         if (response.data.role === "ADMIN") navigate("/admin-dashboard");
         else if (response.data.role === "MANAGER") navigate("/manager-dashboard");
         else navigate("/user-dashboard");
+      } else {
+        alert(response.data.message || "Login Failed");
       }
     } catch(error) {
       console.log(error);
-      alert("Login Failed");
+      alert("Login Failed: Invalid credentials or server is down");
     }
   };
 
   return (
-    <div style={{ display:"flex", justifyContent:"center", alignItems:"center", minHeight:"100vh", background:"#f8fafc" }}>
-      <form onSubmit={handleLogin} style={{ background:"white", padding:"40px", borderRadius:"24px", width:"400px", boxShadow:"0 10px 30px rgba(0,0,0,0.05)", display:"flex", flexDirection:"column", gap:"20px" }}>
-        <h1 style={{ fontSize:"36px", fontWeight:"900", color:"#0f172a", textAlign:"center" }}>Login</h1>
-        <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required style={{ padding:"16px", borderRadius:"12px", border:"1px solid #e2e8f0", fontSize:"16px" }} />
-        <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} required style={{ padding:"16px", borderRadius:"12px", border:"1px solid #e2e8f0", fontSize:"16px" }} />
-        <button type="submit" style={{ padding:"16px", borderRadius:"12px", background:"#2563eb", color:"white", fontWeight:"700", fontSize:"16px", border:"none", cursor:"pointer" }}>Login</button>
-        <p style={{ textAlign:"center", color:"#64748b" }}>Don't have an account? <Link to="/signup" style={{ color:"#2563eb", fontWeight:"700", textDecoration:"none" }}>Signup</Link></p>
-      </form>
+    <div style={{ 
+      display:"flex", 
+      justifyContent:"center", 
+      alignItems:"center", 
+      minHeight:"100vh", 
+      background:"linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 100%)",
+      padding: "20px"
+    }}>
+      <div 
+        className="premium-card" 
+        style={{ 
+          padding:"50px 40px", 
+          borderRadius:"24px", 
+          width:"100%",
+          maxWidth:"460px", 
+          display:"flex", 
+          flexDirection:"column", 
+          gap:"30px" 
+        }}
+      >
+        <div style={{ textAlign: "center" }}>
+          <div style={{ 
+            width: "64px", 
+            height: "64px", 
+            background: "linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1))", 
+            borderRadius: "16px", 
+            display: "flex", 
+            justifyContent: "center", 
+            alignItems: "center", 
+            margin: "0 auto 20px auto" 
+          }}>
+            <LogIn size={28} color="#4F46E5" />
+          </div>
+          <h1 style={{ fontSize:"32px", fontWeight:"900", color:"#111827", letterSpacing: "-1px" }}>Welcome Back</h1>
+          <p style={{ color: "#64748B", marginTop: "8px", fontSize: "15px", fontWeight: "500" }}>Log in to access your dashboard</p>
+        </div>
+
+        <form onSubmit={handleLogin} style={{ display:"flex", flexDirection:"column", gap:"20px" }}>
+          
+          <div style={{ position: "relative" }}>
+            <span style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }}>
+              <Mail size={20} />
+            </span>
+            <input 
+              type="email" 
+              placeholder="Email address" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              className="form-input"
+              style={{ paddingLeft: "52px" }} 
+            />
+          </div>
+
+          <div style={{ position: "relative" }}>
+            <span style={{ position: "absolute", left: "16px", top: "50%", transform: "translateY(-50%)", color: "#94a3b8" }}>
+              <Lock size={20} />
+            </span>
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={password} 
+              onChange={(e) => setPassword(e.target.value)} 
+              required 
+              className="form-input"
+              style={{ paddingLeft: "52px" }} 
+            />
+          </div>
+
+          <button 
+            type="submit" 
+            className="btn-primary" 
+            style={{ 
+              display: "flex", 
+              justifyContent: "center", 
+              alignItems: "center", 
+              gap: "10px", 
+              marginTop: "10px" 
+            }}
+          >
+            Login <ArrowRight size={18} />
+          </button>
+          
+        </form>
+
+        <div style={{ borderTop: "1px solid #E2E8F0", paddingTop: "20px", textAlign: "center" }}>
+          <p style={{ color:"#64748B", fontSize: "15px", fontWeight: "600" }}>
+            Don't have an account? <Link to="/signup" style={{ color:"#4F46E5", fontWeight:"800", textDecoration:"none" }}>Sign up</Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

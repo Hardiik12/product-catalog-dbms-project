@@ -12,48 +12,56 @@ function Cart() {
   const total = cart.reduce((sum, item) => sum + (Number(item.price || 0) * item.quantity), 0);
 
   return (
-    <div style={{ display:"flex", background:"#f8fafc", minHeight:"100vh" }}>
+    <div style={{ display:"flex", flexDirection: user ? "row" : "column", background:"#F8FAFC", minHeight:"100vh", fontFamily:"'Inter', sans-serif" }}>
       {user ? <Sidebar role={user.role} /> : <Navbar />}
       <div style={{ flex:1, padding:"80px 8%", minHeight:"80vh" }}>
-        <h1 style={{ fontSize:"56px", fontWeight:"900", color:"#0f172a" }}>Shopping Cart 🛒</h1>
+        
+        <div style={{ marginBottom:"40px" }}>
+          <h1 style={{ fontSize:"40px", fontWeight:"900", color:"#111827", letterSpacing: "-1px" }}>Shopping Cart 🛒</h1>
+          <p style={{ marginTop:"6px", fontSize:"16px", color:"#64748B", fontWeight: "500" }}>Review your items and proceed to secure checkout.</p>
+        </div>
         
         {cart.length === 0 ? (
-          <div style={{ marginTop:"50px", background:"white", padding:"50px", borderRadius:"24px", textAlign:"center", boxShadow:"0 10px 40px rgba(0,0,0,0.05)" }}>
-            <h2 style={{ fontSize:"36px", fontWeight:"800", color:"#0f172a" }}>Your cart is empty 😔</h2>
-            <Link to="/products" style={{ display:"inline-block", marginTop:"20px", padding:"16px 32px", background:"#2563eb", color:"white", textDecoration:"none", borderRadius:"16px", fontWeight:"700" }}>Browse Products</Link>
+          <div style={{ background:"white", padding:"60px 40px", borderRadius:"24px", textAlign:"center", boxShadow:"var(--shadow-premium)", border: "1px solid rgba(226, 232, 240, 0.8)" }}>
+            <h2 style={{ fontSize:"28px", fontWeight:"800", color:"#111827", letterSpacing: "-0.5px" }}>Your cart is empty 😔</h2>
+            <p style={{ color: "#64748B", marginTop: "8px", fontSize: "16px", fontWeight: "500" }}>Looks like you haven't added anything to your cart yet.</p>
+            <Link to="/products" style={{ display:"inline-block", marginTop:"24px", padding:"14px 32px", background:"linear-gradient(135deg, #4F46E5, #06B6D4)", color:"white", textDecoration:"none", borderRadius:"14px", fontWeight:"700", boxShadow: "0 8px 20px rgba(79, 70, 229, 0.2)", transition: "all 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(79, 70, 229, 0.35)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(79, 70, 229, 0.2)"; }}>Browse Products</Link>
           </div>
         ) : (
-          <div style={{ marginTop:"50px", display:"flex", flexDirection:"column", gap:"24px" }}>
+          <div style={{ display:"flex", flexDirection:"column", gap:"24px" }}>
             {cart.map((item) => (
-              <div key={item.id} style={{ background:"white", padding:"30px", borderRadius:"24px", display:"flex", justifyContent:"space-between", alignItems:"center", boxShadow:"0 10px 40px rgba(0,0,0,0.05)" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:"20px" }}>
-                  <img src={item.imageUrl} alt={item.name} style={{ width:"100px", height:"100px", borderRadius:"16px", objectFit:"cover" }} />
+              <div key={item.id} className="premium-card" style={{ background:"white", padding:"24px", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"20px", flex: 1 }}>
+                  <img src={item.imageUrl} alt={item.name} style={{ width:"90px", height:"90px", borderRadius:"14px", objectFit:"cover" }} />
                   <div>
-                    <h2 style={{ fontSize:"28px", fontWeight:"800", color:"#0f172a" }}>{item.name}</h2>
-                    <p style={{ marginTop:"8px", color:"#64748b", display:"-webkit-box", WebkitLineClamp:1, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{item.description}</p>
+                    <h2 style={{ fontSize:"18px", fontWeight:"800", color:"#111827", lineHeight: "1.3" }}>{item.name}</h2>
+                    <p style={{ marginTop:"4px", color:"#64748B", fontSize: "14px", fontWeight: "500", display:"-webkit-box", WebkitLineClamp:1, WebkitBoxOrient:"vertical", overflow:"hidden" }}>{item.description}</p>
                   </div>
                 </div>
                 
                 <div style={{ display:"flex", alignItems:"center", gap:"40px" }}>
-                  <div style={{ display:"flex", alignItems:"center", gap:"15px", background:"#f1f5f9", padding:"10px 20px", borderRadius:"16px" }}>
-                    <button onClick={() => updateQuantity(item.id, -1)} style={{ background:"none", border:"none", cursor:"pointer", display:"flex" }}><Minus size={18} /></button>
-                    <span style={{ fontSize:"20px", fontWeight:"800" }}>{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, 1)} style={{ background:"none", border:"none", cursor:"pointer", display:"flex" }}><Plus size={18} /></button>
+                  <div style={{ display:"flex", alignItems:"center", gap:"15px", background:"#F1F5F9", padding:"8px 16px", borderRadius:"12px" }}>
+                    <button onClick={() => updateQuantity(item.id, -1)} style={{ background:"none", border:"none", cursor:"pointer", display:"flex", color: "#64748B" }}><Minus size={16} /></button>
+                    <span style={{ fontSize:"16px", fontWeight:"800", color: "#111827", minWidth: "15px", textAlign: "center" }}>{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, 1)} style={{ background:"none", border:"none", cursor:"pointer", display:"flex", color: "#64748B" }}><Plus size={16} /></button>
                   </div>
                   
                   <div style={{ textAlign:"right", minWidth:"150px" }}>
-                    <h2 style={{ color:"#2563eb", fontWeight:"900", fontSize:"28px" }}>${(item.price * item.quantity).toFixed(2)}</h2>
-                    <button onClick={() => removeFromCart(item.id)} style={{ marginTop:"15px", background:"#ef4444", color:"white", border:"none", padding:"10px 16px", borderRadius:"12px", cursor:"pointer", display:"flex", alignItems:"center", gap:"8px", marginLeft:"auto" }}>
-                      <Trash2 size={16}/> Remove
+                    <h2 style={{ color:"#4F46E5", fontWeight:"900", fontSize:"22px" }}>₹{(item.price * item.quantity).toFixed(2)}</h2>
+                    <button onClick={() => removeFromCart(item.id)} style={{ marginTop:"8px", background:"none", border:"none", color:"#EF4444", cursor:"pointer", display:"flex", alignItems:"center", gap:"6px", marginLeft:"auto", fontSize:"13px", fontWeight:"700" }}>
+                      <Trash2 size={14}/> Remove
                     </button>
                   </div>
                 </div>
               </div>
             ))}
             
-            <div style={{ marginTop:"30px", background:"white", padding:"40px", borderRadius:"24px", boxShadow:"0 10px 40px rgba(0,0,0,0.05)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-              <h2 style={{ fontSize:"36px", fontWeight:"900", color:"#0f172a" }}>Total: <span style={{ color:"#2563eb" }}>${total.toFixed(2)}</span></h2>
-              <Link to="/checkout" style={{ textDecoration:"none", background:"#10b981", color:"white", padding:"20px 40px", borderRadius:"16px", fontWeight:"800", fontSize:"18px" }}>Proceed To Checkout</Link>
+            <div style={{ marginTop:"20px", background:"white", padding:"30px 40px", borderRadius:"24px", boxShadow:"var(--shadow-premium)", border: "1px solid rgba(226, 232, 240, 0.8)", display:"flex", justifyContent:"space-between", alignItems:"center" }}>
+              <div>
+                <p style={{ fontSize: "14px", color: "#64748B", fontWeight: "700" }}>Grand Total</p>
+                <h2 style={{ fontSize:"32px", fontWeight:"900", color:"#111827", letterSpacing: "-1px" }}>₹{total.toFixed(2)}</h2>
+              </div>
+              <Link to="/checkout" style={{ textDecoration:"none", background:"linear-gradient(135deg, #10B981, #059669)", color:"white", padding:"16px 36px", borderRadius:"14px", fontWeight:"800", fontSize:"16px", boxShadow: "0 8px 20px rgba(16, 185, 129, 0.2)", transition: "all 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(16, 185, 129, 0.35)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(16, 185, 129, 0.2)"; }}>Proceed To Checkout</Link>
             </div>
           </div>
         )}

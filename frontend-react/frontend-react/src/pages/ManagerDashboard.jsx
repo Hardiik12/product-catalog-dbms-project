@@ -28,109 +28,111 @@ function ManagerDashboard() {
   ];
 
   return (
-    <div style={{ display:"flex", minHeight:"100vh", background:"#f8fafc" }}>
+    <div style={{ display:"flex", minHeight:"100vh", background:"#F8FAFC", fontFamily:"'Inter', sans-serif" }}>
       <Sidebar role="MANAGER" productRoute="/manager-products" />
-      <div style={{ flex:1, padding:"40px" }}>
+      <div style={{ flex:1, padding:"40px 50px" }}>
         
         {/* HEADER */}
-        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"flex-end", marginBottom:"40px" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"40px" }}>
             <div>
-                <h1 style={{ fontSize:"64px", fontWeight:"900", color:"#0f172a" }}>Manager Dashboard 📊</h1>
-                <p style={{ marginTop:"10px", fontSize:"20px", color:"#64748b" }}>Manage your catalog, inventory, and insights.</p>
+                <h1 style={{ fontSize:"40px", fontWeight:"900", color:"#111827", letterSpacing: "-1px" }}>Manager Dashboard 📊</h1>
+                <p style={{ marginTop:"6px", fontSize:"16px", color:"#64748B", fontWeight: "500" }}>Manage your catalog, inventory, and insights.</p>
             </div>
             
             {/* QUICK ACTIONS */}
             <div style={{ display:"flex", gap:"15px" }}>
-                <Link to="/manager-products" style={{ textDecoration:"none", background:"#2563eb", color:"white", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px" }}>
+                <Link to="/manager-products" style={{ textDecoration:"none", background:"linear-gradient(135deg, #4F46E5, #06B6D4)", color:"white", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px", boxShadow: "0 8px 20px rgba(79, 70, 229, 0.2)", transition: "all 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(79, 70, 229, 0.35)"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(79, 70, 229, 0.2)"; }}>
                     <Edit size={18} /> Manage Catalog
                 </Link>
-                <Link to="/inventory" style={{ textDecoration:"none", background:"white", color:"#0f172a", border:"1px solid #cbd5e1", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px", boxShadow:"0 4px 6px rgba(0,0,0,0.02)" }}>
+                <Link to="/inventory" style={{ textDecoration:"none", background:"white", color:"#111827", border:"1px solid #E2E8F0", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px", boxShadow:"0 4px 10px rgba(0,0,0,0.03)", transition: "all 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderColor = "#CBD5E1"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "#E2E8F0"; }}>
                     <Boxes size={18} /> Inventory
                 </Link>
-                <Link to="/analytics" style={{ textDecoration:"none", background:"white", color:"#0f172a", border:"1px solid #cbd5e1", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px", boxShadow:"0 4px 6px rgba(0,0,0,0.02)" }}>
+                <Link to="/analytics" style={{ textDecoration:"none", background:"white", color:"#111827", border:"1px solid #E2E8F0", padding:"14px 24px", borderRadius:"14px", fontWeight:"700", display:"flex", alignItems:"center", gap:"8px", boxShadow:"0 4px 10px rgba(0,0,0,0.03)", transition: "all 0.3s" }} onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.borderColor = "#CBD5E1"; }} onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "#E2E8F0"; }}>
                     <BarChart3 size={18} /> Analytics
                 </Link>
             </div>
         </div>
 
         {/* METRICS GRID */}
-        <div style={{ display:"grid", gridTemplateColumns:"repeat(4, 1fr)", gap:"24px", marginBottom:"40px" }}>
+        <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(220px, 1fr))", gap:"24px", marginBottom:"40px" }}>
             
             {/* Metric 1 */}
-            <div style={{ background:"white", padding:"30px", borderRadius:"24px", boxShadow:"0 10px 40px rgba(0,0,0,0.04)" }}>
+            <div className="premium-card" style={{ padding:"30px", background: "white" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <h2 style={{ fontSize:"20px", color:"#64748b", fontWeight:"700" }}>Active Products</h2>
-                    <div style={{ padding:"10px", background:"#dbeafe", borderRadius:"12px" }}><Package size={24} color="#2563eb" /></div>
+                    <h2 style={{ fontSize:"16px", color:"#64748B", fontWeight:"700" }}>Active Products</h2>
+                    <div style={{ padding:"10px", background:"#EEF2FF", borderRadius:"12px", display: "flex", justifyContent: "center", alignItems: "center" }}><Package size={22} color="#4F46E5" /></div>
                 </div>
-                <p style={{ fontSize:"42px", fontWeight:"900", color:"#0f172a", marginTop:"15px" }}>{activeProducts}</p>
-                <p style={{ fontSize:"14px", color:"#10b981", fontWeight:"700", marginTop:"5px" }}>Live catalog count</p>
+                <p style={{ fontSize:"36px", fontWeight:"900", color:"#111827", marginTop:"15px", letterSpacing: "-1px" }}>{activeProducts}</p>
+                <p style={{ fontSize:"13px", color:"#10B981", fontWeight:"700", marginTop:"5px" }}>Live catalog count</p>
             </div>
 
             {/* Metric 2 */}
-            <div style={{ background:"white", padding:"30px", borderRadius:"24px", boxShadow:"0 10px 40px rgba(0,0,0,0.04)" }}>
+            <div className="premium-card" style={{ padding:"30px", background: "white" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <h2 style={{ fontSize:"20px", color:"#64748b", fontWeight:"700" }}>Low Stock Alerts</h2>
-                    <div style={{ padding:"10px", background:"#fee2e2", borderRadius:"12px" }}><AlertTriangle size={24} color="#ef4444" /></div>
+                    <h2 style={{ fontSize:"16px", color:"#64748B", fontWeight:"700" }}>Low Stock Alerts</h2>
+                    <div style={{ padding:"10px", background:"#FEF2F2", borderRadius:"12px", display: "flex", justifyContent: "center", alignItems: "center" }}><AlertTriangle size={22} color="#EF4444" /></div>
                 </div>
-                <p style={{ fontSize:"42px", fontWeight:"900", color:"#0f172a", marginTop:"15px" }}>3</p>
-                <p style={{ fontSize:"14px", color:"#ef4444", fontWeight:"700", marginTop:"5px" }}>Requires attention</p>
+                <p style={{ fontSize:"36px", fontWeight:"900", color:"#111827", marginTop:"15px", letterSpacing: "-1px" }}>3</p>
+                <p style={{ fontSize:"13px", color:"#EF4444", fontWeight:"700", marginTop:"5px" }}>Requires attention</p>
             </div>
 
             {/* Metric 3 */}
-            <div style={{ background:"white", padding:"30px", borderRadius:"24px", boxShadow:"0 10px 40px rgba(0,0,0,0.04)" }}>
+            <div className="premium-card" style={{ padding:"30px", background: "white" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <h2 style={{ fontSize:"20px", color:"#64748b", fontWeight:"700" }}>Total Orders</h2>
-                    <div style={{ padding:"10px", background:"#dcfce7", borderRadius:"12px" }}><ShoppingCart size={24} color="#16a34a" /></div>
+                    <h2 style={{ fontSize:"16px", color:"#64748B", fontWeight:"700" }}>Total Orders</h2>
+                    <div style={{ padding:"10px", background:"#ECFDF5", borderRadius:"12px", display: "flex", justifyContent: "center", alignItems: "center" }}><ShoppingCart size={22} color="#10B981" /></div>
                 </div>
-                <p style={{ fontSize:"42px", fontWeight:"900", color:"#0f172a", marginTop:"15px" }}>842</p>
-                <p style={{ fontSize:"14px", color:"#10b981", fontWeight:"700", marginTop:"5px" }}>+24 today</p>
+                <p style={{ fontSize:"36px", fontWeight:"900", color:"#111827", marginTop:"15px", letterSpacing: "-1px" }}>842</p>
+                <p style={{ fontSize:"13px", color:"#10B981", fontWeight:"700", marginTop:"5px" }}>+24 today</p>
             </div>
 
             {/* Metric 4 */}
-            <div style={{ background:"white", padding:"30px", borderRadius:"24px", boxShadow:"0 10px 40px rgba(0,0,0,0.04)" }}>
+            <div className="premium-card" style={{ padding:"30px", background: "white" }}>
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                    <h2 style={{ fontSize:"20px", color:"#64748b", fontWeight:"700" }}>Pending Reviews</h2>
-                    <div style={{ padding:"10px", background:"#fef3c7", borderRadius:"12px" }}><MessageSquare size={24} color="#d97706" /></div>
+                    <h2 style={{ fontSize:"16px", color:"#64748B", fontWeight:"700" }}>Pending Reviews</h2>
+                    <div style={{ padding:"10px", background:"#FFFBEB", borderRadius:"12px", display: "flex", justifyContent: "center", alignItems: "center" }}><MessageSquare size={22} color="#F59E0B" /></div>
                 </div>
-                <p style={{ fontSize:"42px", fontWeight:"900", color:"#0f172a", marginTop:"15px" }}>12</p>
-                <p style={{ fontSize:"14px", color:"#64748b", fontWeight:"700", marginTop:"5px" }}>Awaiting approval</p>
+                <p style={{ fontSize:"36px", fontWeight:"900", color:"#111827", marginTop:"15px", letterSpacing: "-1px" }}>12</p>
+                <p style={{ fontSize:"13px", color:"#64748B", fontWeight:"700", marginTop:"5px" }}>Awaiting approval</p>
             </div>
 
         </div>
 
         {/* RECENT CATALOG ACTIVITY TABLE */}
-        <div style={{ background:"white", padding:"35px", borderRadius:"28px", boxShadow:"0 10px 40px rgba(0,0,0,0.04)" }}>
-            <h2 style={{ fontSize:"28px", fontWeight:"900", color:"#0f172a", marginBottom:"25px" }}>Recent Catalog Activity</h2>
+        <div style={{ background:"white", padding:"35px", borderRadius:"24px", boxShadow:"var(--shadow-premium)", border: "1px solid rgba(226, 232, 240, 0.8)" }}>
+            <h2 style={{ fontSize:"24px", fontWeight:"900", color:"#111827", marginBottom:"25px", letterSpacing: "-0.5px" }}>Recent Catalog Activity</h2>
             
-            <table style={{ width:"100%", borderCollapse:"collapse", textAlign:"left" }}>
-                <thead>
-                    <tr>
-                        <th style={{ padding:"20px 15px", borderBottom:"1px solid #e2e8f0", color:"#64748b", fontWeight:"700", fontSize:"15px" }}>Action</th>
-                        <th style={{ padding:"20px 15px", borderBottom:"1px solid #e2e8f0", color:"#64748b", fontWeight:"700", fontSize:"15px" }}>Time</th>
-                        <th style={{ padding:"20px 15px", borderBottom:"1px solid #e2e8f0", color:"#64748b", fontWeight:"700", fontSize:"15px" }}>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {mockActivity.map(act => (
-                        <tr key={act.id}>
-                            <td style={{ padding:"20px 15px", borderBottom:"1px solid #f1f5f9", fontWeight:"700", color:"#0f172a" }}>{act.action}</td>
-                            <td style={{ padding:"20px 15px", borderBottom:"1px solid #f1f5f9", color:"#64748b" }}>{act.time}</td>
-                            <td style={{ padding:"20px 15px", borderBottom:"1px solid #f1f5f9" }}>
-                                <span style={{
-                                    padding:"6px 12px",
-                                    borderRadius:"99px",
-                                    fontSize:"13px",
-                                    fontWeight:"800",
-                                    background: act.status === "Update" ? "#dbeafe" : act.status === "Added" ? "#dcfce7" : "#fee2e2",
-                                    color: act.status === "Update" ? "#2563eb" : act.status === "Added" ? "#16a34a" : "#ef4444"
-                                }}>
-                                    {act.status}
-                                </span>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            <div style={{ overflowX: "auto" }}>
+              <table className="premium-table">
+                  <thead>
+                      <tr>
+                          <th>Action</th>
+                          <th>Time</th>
+                          <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {mockActivity.map(act => (
+                          <tr key={act.id}>
+                              <td style={{ fontWeight:"700", color:"#111827" }}>{act.action}</td>
+                              <td style={{ color:"#64748B" }}>{act.time}</td>
+                              <td>
+                                  <span style={{
+                                      padding:"6px 14px",
+                                      borderRadius:"99px",
+                                      fontSize:"12px",
+                                      fontWeight:"800",
+                                      background: act.status === "Update" ? "#EEF2FF" : act.status === "Added" ? "#ECFDF5" : "#FEF2F2",
+                                      color: act.status === "Update" ? "#4F46E5" : act.status === "Added" ? "#10B981" : "#EF4444"
+                                  }}>
+                                      {act.status}
+                                  </span>
+                              </td>
+                          </tr>
+                      ))}
+                  </tbody>
+              </table>
+            </div>
         </div>
 
       </div>

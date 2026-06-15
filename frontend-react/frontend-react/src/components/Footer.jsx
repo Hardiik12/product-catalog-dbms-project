@@ -1,7 +1,7 @@
 function Footer() {
   return (
-    <div style={{ background:"white", padding:"40px 8%", borderTop:"1px solid #e2e8f0", textAlign:"center", color:"#64748b" }}>
-      <p>&copy; 2024 VectorCart AI. All rights reserved.</p>
+    <div style={{ background:"#FFFFFF", padding:"40px 8%", borderTop:"1.5px solid #E2E8F0", textAlign:"center", color:"#64748B", fontFamily:"'Inter', sans-serif", fontSize:"14px", fontWeight:"500" }}>
+      <p>&copy; 2026 VectorCart AI. All rights reserved.</p>
     </div>
   );
 }
