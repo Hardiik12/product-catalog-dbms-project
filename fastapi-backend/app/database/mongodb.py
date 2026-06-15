@@ -1,8 +1,13 @@
 from pymongo import MongoClient
+from pymongo.server_api import ServerApi
 
-MONGO_URL = "mongodb://localhost:27017"
+MONGO_URL = "mongodb+srv://hardiikgupta_db_user:hardik12@productcatalog.uqdoop8.mongodb.net/?appName=productCatalog"
 
-client = MongoClient(MONGO_URL)
+# ServerApi v1 required for MongoDB Atlas Stable API
+client = MongoClient(
+    MONGO_URL,
+    server_api=ServerApi("1"),
+)
 
 db = client["product_catalog_ai"]
 

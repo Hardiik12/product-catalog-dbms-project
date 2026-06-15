@@ -28,7 +28,7 @@ export const AuthProvider = ({
 
     const response = await axios.post(
 
-      "http://localhost:8080/auth/login",
+      "http://localhost:8000/auth/login",
 
       {
         email,
@@ -56,7 +56,7 @@ export const AuthProvider = ({
 
     const response = await axios.post(
 
-      "http://localhost:8080/auth/signup",
+      "http://localhost:8000/auth/signup",
 
       data
     );
