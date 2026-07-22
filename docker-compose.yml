@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # ── 1. POSTGRESQL DATABASE ──────────────────────────────────────────────────
+  postgres:
+    image: postgres:15-alpine
+    container_name: vectorcart_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: product_catalog
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ── 2. SPRING BOOT BACKEND (RELATIONAL DBMS) ────────────────────────────────
+  springboot-backend:
+    build:
+      context: ./springboot-backend/backend
+      dockerfile: Dockerfile
+    container_name: vectorcart_springboot
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/product_catalog
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgrespassword
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: supersecretjwtkeyvectorcart2026
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # ── 3. FASTAPI BACKEND (MONGODB & AI VECTOR SEARCH) ─────────────────────────
+  fastapi-backend:
+    build:
+      context: ./fastapi-backend
+      dockerfile: Dockerfile
+    container_name: vectorcart_fastapi
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      SPRINGBOOT_URL: http://springboot-backend:8080
+      MONGODB_URI: ${MONGODB_URI:-mongodb://localhost:27017/product_catalog}
+      JWT_SECRET: supersecretjwtkeyvectorcart2026
+    depends_on:
+      - springboot-backend
+
+  # ── 4. NODE.JS EXPRESS API GATEWAY ──────────────────────────────────────────
+  backend-node-gateway:
+    build:
+      context: ./backend-node-gateway
+      dockerfile: Dockerfile
+    container_name: vectorcart_node_gateway
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      PORT: 8000
+      SPRINGBOOT_URL: http://springboot-backend:8080
+      FASTAPI_URL: http://fastapi-backend:5000
+      MONGODB_URI: ${MONGODB_URI:-mongodb://localhost:27017/product_catalog}
+      JWT_SECRET: supersecretjwtkeyvectorcart2026
+    depends_on:
+      - springboot-backend
+      - fastapi-backend
+
+  # ── 5. REACT FRONTEND ───────────────────────────────────────────────────────
+  frontend-react:
+    build:
+      context: ./frontend-react/frontend-react
+      dockerfile: Dockerfile
+    container_name: vectorcart_frontend
+    restart: always
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend-node-gateway
+
+volumes:
+  postgres_data:

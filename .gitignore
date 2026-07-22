@@ -1,9 +1,61 @@
+# ── Environment & Secrets ───────────────────────────────────────────────────
+.env
+.env.local
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+
+# ── Dependencies ─────────────────────────────────────────────────────────────
 node_modules/
-target/
+**/node_modules/
 venv/
 .venv/
+**/venv/
+**/.venv/
+
+# ── Python Caches & Bytecode ────────────────────────────────────────────────
 __pycache__/
-.env
+**/__pycache__*/
+**/__pycache__*
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ── Build & Dist Outputs ───────────────────────────────────────────────────
+dist/
+**/dist/
+build/
+**/build/
+target/
+**/target/
+*.jar
+*.war
+*.ear
+
+# ── IDEs & Editors ───────────────────────────────────────────────────────────
 .idea/
 .vscode/
+*.swp
+*.swo
+.classpath
+.project
+.settings/
+.factorypath
+
+# ── OS Generated Files ───────────────────────────────────────────────────────
 .DS_Store
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+
+# ── Logs & Databases ────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.sqlite3
+*.db
