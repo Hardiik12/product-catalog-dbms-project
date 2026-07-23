@@ -1,6 +1,5 @@
 {
-  "buildCommand": "if [ -d \"frontend-react/frontend-react\" ]; then cd frontend-react/frontend-react && npm install && npm run build; else npm run build; fi",
-  "outputDirectory": "dist",
+  "outputDirectory": "frontend-react/frontend-react/dist",
   "rewrites": [
     {
       "source": "/(.*)",
