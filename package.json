@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "cd frontend-react/frontend-react && npm install && npm run build"
+    "build": "if [ -d \"frontend-react/frontend-react\" ]; then cd frontend-react/frontend-react && npm install && npm run build; else vite build; fi"
   }
 }
