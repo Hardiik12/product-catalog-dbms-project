@@ -1,4 +1,10 @@
 {
+  "name": "frontend-react-parent",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix frontend-react run dev",
+    "build": "npm --prefix frontend-react install && npm --prefix frontend-react run build && mkdir -p dist && cp -r frontend-react/dist/* dist/"
+  },
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@tailwindcss/vite": "^4.3.0",
