@@ -1,5 +1,4 @@
 {
-  "outputDirectory": "frontend-react/frontend-react/dist",
   "rewrites": [
     {
       "source": "/(.*)",
