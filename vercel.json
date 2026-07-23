@@ -1,6 +1,5 @@
 {
-  "buildCommand": "cd frontend-react/frontend-react && npm install && npm run build",
-  "outputDirectory": "frontend-react/frontend-react/dist",
+  "framework": "vite",
   "rewrites": [
     {
       "source": "/(.*)",
