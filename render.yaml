@@ -1,0 +1,55 @@
+services:
+  # ── 1. SPRING BOOT BACKEND (RELATIONAL DBMS) ────────────────────────────────
+  - type: web
+    name: vectorcart-springboot
+    runtime: docker
+    dockerfilePath: springboot-backend/backend/Dockerfile
+    dockerContext: springboot-backend/backend
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        value: supersecretjwtkeyvectorcart2026
+
+  # ── 2. FASTAPI BACKEND (MONGODB & AI VECTOR SEARCH) ─────────────────────────
+  - type: web
+    name: vectorcart-fastapi
+    runtime: docker
+    dockerfilePath: fastapi-backend/Dockerfile
+    dockerContext: fastapi-backend
+    envVars:
+      - key: SPRINGBOOT_URL
+        value: http://vectorcart-springboot:8080
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        value: supersecretjwtkeyvectorcart2026
+
+  # ── 3. NODE.JS EXPRESS API GATEWAY ──────────────────────────────────────────
+  - type: web
+    name: vectorcart-node-gateway
+    runtime: docker
+    dockerfilePath: backend-node-gateway/Dockerfile
+    dockerContext: backend-node-gateway
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: SPRINGBOOT_URL
+        value: http://vectorcart-springboot:8080
+      - key: FASTAPI_URL
+        value: http://vectorcart-fastapi:5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        value: supersecretjwtkeyvectorcart2026
+
+  # ── 4. REACT FRONTEND ───────────────────────────────────────────────────────
+  - type: web
+    name: vectorcart-frontend
+    runtime: docker
+    dockerfilePath: frontend-react/frontend-react/Dockerfile
+    dockerContext: frontend-react/frontend-react
