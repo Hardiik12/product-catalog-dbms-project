@@ -1,5 +1,6 @@
 {
-  "outputDirectory": "dist",
+  "buildCommand": "cd frontend-react/frontend-react && npm install && npm run build",
+  "outputDirectory": "frontend-react/frontend-react/dist",
   "rewrites": [
     {
       "source": "/(.*)",
